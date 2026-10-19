@@ -1,2 +1,3 @@
-# scanandpay-dotnet
-Official Scan &amp; Pay .NET SDK: accept PayTo PayID payments with QR code-based instant verification at checkout.
+# scanandpay
+
+The official Scan & Pay .NET SDK is coming soon (`dotnet add package ScanAndPay`). In the meantime, integrate QR code-based instant PayTo PayID verification at checkout using our official Node SDK, PHP SDK, or the direct REST API — see full documentation at [https://docs.scanandpay.com.au](https://docs.scanandpay.com.au).

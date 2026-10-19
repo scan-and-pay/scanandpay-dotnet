@@ -1,0 +1,46 @@
+name: Publish to NuGet
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  publish:
+    name: Publish to NuGet
+    runs-on: ubuntu-latest
+    environment: nuget
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Verify tag matches ScanAndPay.csproj version
+        run: |
+          set -euo pipefail
+          PKG_VERSION="$(dotnet msbuild src/ScanAndPay/ScanAndPay.csproj -getProperty:Version)"
+          EXPECTED_TAG="v${PKG_VERSION}"
+          if [ "${GITHUB_REF_NAME}" != "${EXPECTED_TAG}" ]; then
+            echo "::error::Tag ${GITHUB_REF_NAME} does not match ScanAndPay.csproj version (${EXPECTED_TAG})."
+            exit 1
+          fi
+
+      - name: Build package
+        run: dotnet pack src/ScanAndPay/ScanAndPay.csproj -c Release -o out
+
+      # NuGet/login pinned to v1.2.0
+      - name: NuGet Login
+        id: nuget-login
+        uses: NuGet/login@8d196754b4036150537f80ac539e15c2f1028841 # v1.2.0
+        with:
+          user: scanandpay
+
+      - name: Publish to NuGet
+        run: dotnet nuget push out/*.nupkg --api-key "${{ steps.nuget-login.outputs.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json

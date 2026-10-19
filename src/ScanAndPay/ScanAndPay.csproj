@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PackageId>ScanAndPay</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Scan &amp; Pay</Authors>
+    <Company>Scan &amp; Pay</Company>
+    <Description>Official Scan &amp; Pay .NET SDK: accept PayTo PayID payments with QR code-based instant verification at checkout. Coming soon.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://scanandpay.com.au</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/scan-and-pay/scanandpay-dotnet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>payto payid payments australia qr</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>
